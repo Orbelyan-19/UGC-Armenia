@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You - ContentBridge Armenia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+            color: white;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .next-steps {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .next-steps h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--glass);
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+
+        .step-content p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .contact-info {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .contact-info h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-methods {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .contact-method i {
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .btn-secondary:hover {
+            background: var(--glass-border);
+        }
+
+        .footer {
+            margin-top: 3rem;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .glass {
+                padding: 2rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .contact-methods {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-method {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="glass">
+            <div class="success-icon animate">
+                <i class="fas fa-check"></i>
+            </div>
+            
+            <h1 class="animate delay-1">Thank You!</h1>
+            <p class="subtitle animate delay-2">
+                Your project request has been successfully submitted. Our team will review your requirements and get back to you within 24 hours.
+            </p>
+
+            <div class="next-steps animate delay-3">
+                <h3>What happens next?</h3>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Review & Matching</h4>
+                        <p>We'll review your project requirements and match you with the best Armenian creators for your specific needs.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Creator Introduction</h4>
+                        <p>Within 24 hours, we'll introduce you to 2-3 verified creators who match your project criteria.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Project Kickoff</h4>
+                        <p>Once you approve a creator, we'll set up the escrow payment and begin your UGC video project.</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Delivery & Payment</h4>
+                        <p>Receive your high-quality UGC video and release payment through our secure escrow system.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-info animate delay-4">
+                <h3>Need immediate assistance?</h3>
+                <div class="contact-methods">
+                    <a href="https://wa.me/374XXXXXXXX" class="contact-method" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                    <a href="https://t.me/contentbridge_armenia" class="contact-method" target="_blank">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
+                    <a href="mailto:info@contentbridge-armenia.com" class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="social-links animate delay-4">
+                <a href="#" title="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" title="Follow us on Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="#" title="Follow us on LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+
+            <div class="animate delay-4">
+                <a href="index.html" class="btn">Back to Home</a>
+                <a href="admin.html" class="btn btn-secondary">Admin Panel</a>
+            </div>
+
+            <div class="footer animate delay-4">
+                <p>&copy; 2024 ContentBridge Armenia. All rights reserved.</p>
+                <p>Connecting Armenian creators with global businesses</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5BJ9JRVE9C');
+
+        // Track thank you page view
+        gtag('event', 'page_view', {
+            'page_title': 'Thank You - ContentBridge Armenia',
+            'page_location': window.location.href
+        });
+
+        // Track form completion
+        gtag('event', 'form_completion', {
+            'event_category': 'engagement',
+            'event_label': 'project_request_completed'
+        });
+
+        // Add animation classes on load
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.animate');
+            elements.forEach((element, index) => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    element.style.transition = 'all 0.6s ease';
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // Auto-redirect after 30 seconds (optional)
+        setTimeout(() => {
+            if (confirm('Would you like to return to the homepage?')) {
+                window.location.href = 'index.html';
+            }
+        }, 30000);
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5BJ9JRVE9C"></script>
+</body>
+</html>

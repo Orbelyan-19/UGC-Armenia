@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ContentBridge Armenia - Admin Panel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --sidebar-width: 250px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid var(--glass-border);
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .sidebar-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sidebar-nav {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: var(--glass);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .nav-item i {
+            margin-right: 1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .page-title {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Dashboard Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            opacity: 0.1;
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        .stat-change {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+        }
+
+        .stat-change.positive {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .stat-change.negative {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        /* Charts Section */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            padding: 1.5rem;
+            height: 400px;
+        }
+
+        /* Tables */
+        .table-container {
+            margin-bottom: 2rem;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .table-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .table-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        th {
+            font-weight: 600;
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        tr:hover {
+            background: var(--glass);
+        }
+
+        .status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status.pending {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .status.approved {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--success);
+        }
+
+        .status.rejected {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .status.completed {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .close-modal:hover {
+            opacity: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            background: var(--glass);
+            color: var(--light);
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .charts-section {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 1.5rem;
+        }
+
+        .tab {
+            padding: 1rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">ContentBridge Admin</div>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+                <i class="fas fa-tachometer-alt"></i>
+                Dashboard
+            </a>
+            <a href="#orders" class="nav-item" data-tab="orders">
+                <i class="fas fa-shopping-cart"></i>
+                Orders
+            </a>
+            <a href="#creators" class="nav-item" data-tab="creators">
+                <i class="fas fa-users"></i>
+                Creators
+            </a>
+            <a href="#clients" class="nav-item" data-tab="clients">
+                <i class="fas fa-building"></i>
+                Clients
+            </a>
+            <a href="#analytics" class="nav-item" data-tab="analytics">
+                <i class="fas fa-chart-bar"></i>
+                Analytics
+            </a>
+            <a href="#finances" class="nav-item" data-tab="finances">
+                <i class="fas fa-dollar-sign"></i>
+                Finances
+            </a>
+            <a href="#moderation" class="nav-item" data-tab="moderation">
+                <i class="fas fa-shield-alt"></i>
+                Moderation
+            </a>
+        </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Admin Dashboard</h1>
+            <div class="user-menu">
+                <div class="user-avatar">A</div>
+                <span>Admin</span>
+            </div>
+        </div>
+
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-label">Total Orders</div>
+                    <div class="stat-change positive">+12.5%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">$45,230</div>
+                    <div class="stat-label">Revenue (YTD)</div>
+                    <div class="stat-change positive">+8.3%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">156</div>
+                    <div class="stat-label">Active Creators</div>
+                    <div class="stat-change positive">+5.2%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Active Clients</div>
+                    <div class="stat-change negative">-2.1%</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="charts-section">
+                <div class="chart-container glass">
+                    <h3>Revenue Trends</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-container glass">
+                    <h3>Order Status</h3>
+                    <canvas id="orderChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Recent Orders -->
+            <div class="table-container">
+                <div class="table-header">
+                    <h3 class="table-title">Recent Orders</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-primary" onclick="openModal('orderModal')">
+                            <i class="fas fa-plus"></i> New Order
+                        </button>
+                    </div>
+                </div>
+                <div class="glass">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Client</th>
+                                <th>Creator</th>
+                                <th>Type</th>
+                                <th>Budget</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#CB001</td>
+                                <td>TechCorp Armenia</td>
+                                <td>Ani Hovhannisyan</td>
+                                <td>Tech Review</td>
+                                <td>$150</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#CB002</td>
+                                <td>BeautyBox</td>
+                                <td>Maria Petrosyan</td>
+                                <td>Beauty</td>
+                                <td>$80</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>2024-01-14</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#CB003</td>
+                                <td>FoodExpress</td>
+                                <td>David Karapetyan</td>
+                                <td>Food</td>
+                                <td>$120</td>
+                                <td><span class="status approved">Approved</span></td>
+                                <td>2024-01-13</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Tab -->
+        <div id="orders" class="tab-content">
+            <div class="tabs">
+                <button class="tab active" data-tab="all-orders">All Orders</button>
+                <button class="tab" data-tab="pending-orders">Pending</button>
+                <button class="tab" data-tab="completed-orders">Completed</button>
+            </div>
+            
+            <div id="all-orders" class="tab-content active">
+                <div class="table-header">
+                    <h3 class="table-title">All Orders</h3>
+                    <div class="table-actions">
+                        <button class="btn btn-primary" onclick="openModal('orderModal')">
+                            <i class="fas fa-plus"></i> New Order
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+                <div class="glass">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Client</th>
+                                <th>Creator</th>
+                                <th>Type</th>
+                                <th>Budget</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#CB001</td>
+                                <td>TechCorp Armenia</td>
+                                <td>Ani Hovhannisyan</td>
+                                <td>Tech Review</td>
+                                <td>$150</td>
+                                <td><span class="status completed">Completed</span></td>
+                                <td>2024-01-15</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">View</button>
+                                    <button class="btn btn-success btn-sm">Approve</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>#CB002</td>
+                                <td>BeautyBox</td>
+                                <td>Maria Petrosyan</td>
+                                <td>Beauty</td>
+                                <td>$80</td>
+                                <td><span class="status pending">Pending</span></td>
+                                <td>2024-01-14</td>
+                                <td>
+                                    <button class="btn btn-secondary btn-sm">View</button>
+                                    <button class="btn btn-success btn-sm">Approve</button>
+                                    <button class="btn btn-danger btn-sm">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Creators Tab -->
+        <div id="creators" class="tab-content">
+            <div class="table-header">
+                <h3 class="table-title">Creators Management</h3>
+                <div class="table-actions">
+                    <button class="btn btn-primary" onclick="openModal('creatorModal')">
+                        <i class="fas fa-plus"></i> Add Creator
+                    </button>
+                </div>
+            </div>
+            <div class="glass">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Rating</th>
+                            <th>Completed</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#CR001</td>
+                            <td>Ani Hovhannisyan</td>
+                            <td>Tech</td>
+                            <td>4.8/5</td>
+                            <td>45</td>
+                            <td><span class="status approved">Active</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm">View</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#CR002</td>
+                            <td>Maria Petrosyan</td>
+                            <td>Beauty</td>
+                            <td>4.6/5</td>
+                            <td>32</td>
+                            <td><span class="status approved">Active</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm">View</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Clients Tab -->
+        <div id="clients" class="tab-content">
+            <div class="table-header">
+                <h3 class="table-title">Clients Management</h3>
+                <div class="table-actions">
+                    <button class="btn btn-primary" onclick="openModal('clientModal')">
+                        <i class="fas fa-plus"></i> Add Client
+                    </button>
+                </div>
+            </div>
+            <div class="glass">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Company</th>
+                            <th>Contact</th>
+                            <th>Plan</th>
+                            <th>Orders</th>
+                            <th>Spent</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#CL001</td>
+                            <td>TechCorp Armenia</td>
+                            <td>info@techcorp.am</td>
+                            <td>Premium</td>
+                            <td>12</td>
+                            <td>$1,800</td>
+                            <td><span class="status approved">Active</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm">View</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>#CL002</td>
+                            <td>BeautyBox</td>
+                            <td>hello@beautybox.am</td>
+                            <td>Standard</td>
+                            <td>8</td>
+                            <td>$640</td>
+                            <td><span class="status approved">Active</span></td>
+                            <td>
+                                <button class="btn btn-secondary btn-sm">View</button>
+                                <button class="btn btn-warning btn-sm">Edit</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Analytics Tab -->
+        <div id="analytics" class="tab-content">
+            <div class="charts-section">
+                <div class="chart-container glass">
+                    <h3>Revenue by Category</h3>
+                    <canvas id="categoryChart"></canvas>
+                </div>
+                <div class="chart-container glass">
+                    <h3>Creator Performance</h3>
+                    <canvas id="creatorChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Finances Tab -->
+        <div id="finances" class="tab-content">
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-value">$11,250</div>
+                    <div class="stat-label">Commission Revenue</div>
+                    <div class="stat-change positive">+15.2%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">$2,250</div>
+                    <div class="stat-label">Subscription Revenue</div>
+                    <div class="stat-change positive">+8.7%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">$1,125</div>
+                    <div class="stat-label">Rush Order Fees</div>
+                    <div class="stat-change positive">+22.1%</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-value">$14,625</div>
+                    <div class="stat-label">Total Revenue</div>
+                    <div class="stat-change positive">+12.3%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Moderation Tab -->
+        <div id="moderation" class="tab-content">
+            <div class="table-header">
+                <h3 class="table-title">Content Moderation</h3>
+            </div>
+            <div class="glass">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Creator</th>
+                            <th>Content Type</th>
+                            <th>Reported</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#MOD001</td>
+                            <td>Ani Hovhannisyan</td>
+                            <td>Video Review</td>
+                            <td>2024-01-15</td>
+                            <td><span class="status pending">Under Review</span></td>
+                            <td>
+                                <button class="btn btn-success btn-sm">Approve</button>
+                                <button class="btn btn-danger btn-sm">Reject</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create New Order</h3>
+                <button class="close-modal" onclick="closeModal('orderModal')">&times;</button>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Client</label>
+                    <select required>
+                        <option value="">Select Client</option>
+                        <option value="techcorp">TechCorp Armenia</option>
+                        <option value="beautybox">BeautyBox</option>
+                        <option value="foodexpress">FoodExpress</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Creator</label>
+                    <select required>
+                        <option value="">Select Creator</option>
+                        <option value="ani">Ani Hovhannisyan</option>
+                        <option value="maria">Maria Petrosyan</option>
+                        <option value="david">David Karapetyan</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Video Type</label>
+                    <select required>
+                        <option value="">Select Type</option>
+                        <option value="beauty">Beauty & Fashion</option>
+                        <option value="tech">Technology</option>
+                        <option value="food">Food & Cooking</option>
+                        <option value="sports">Sports & Fitness</option>
+                        <option value="auto">Automotive</option>
+                        <option value="travel">Travel & Lifestyle</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Budget</label>
+                    <input type="number" placeholder="Enter budget amount" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea placeholder="Project description..." rows="3"></textarea>
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Create Order</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('orderModal')" style="flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Creator Modal -->
+    <div id="creatorModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Creator</h3>
+                <button class="close-modal" onclick="closeModal('creatorModal')">&times;</button>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter email" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select required>
+                        <option value="">Select Category</option>
+                        <option value="beauty">Beauty & Fashion</option>
+                        <option value="tech">Technology</option>
+                        <option value="food">Food & Cooking</option>
+                        <option value="sports">Sports & Fitness</option>
+                        <option value="auto">Automotive</option>
+                        <option value="travel">Travel & Lifestyle</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" placeholder="Enter phone number">
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Creator</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('creatorModal')" style="flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Client Modal -->
+    <div id="clientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add New Client</h3>
+                <button class="close-modal" onclick="closeModal('clientModal')">&times;</button>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" placeholder="Enter company name" required>
+                </div>
+                <div class="form-group">
+                    <label>Contact Email</label>
+                    <input type="email" placeholder="Enter contact email" required>
+                </div>
+                <div class="form-group">
+                    <label>Plan</label>
+                    <select required>
+                        <option value="">Select Plan</option>
+                        <option value="standard">Business Standard ($49/month)</option>
+                        <option value="premium">Business Premium ($299/month)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Contact Person</label>
+                    <input type="text" placeholder="Enter contact person name">
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                    <button type="submit" class="btn btn-primary" style="flex: 1;">Add Client</button>
+                    <button type="button" class="btn btn-secondary" onclick="closeModal('clientModal')" style="flex: 1;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all nav items and tab contents
+                document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked nav item
+                this.classList.add('active');
+                
+                // Show corresponding tab content
+                const tabId = this.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update page title
+                document.querySelector('.page-title').textContent = this.textContent.trim();
+            });
+        });
+
+        // Sub-tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabContainer = this.closest('.tabs');
+                const tabContents = tabContainer.parentElement.querySelectorAll('.tab-content');
+                
+                // Remove active class from all tabs and contents
+                tabContainer.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Show corresponding content
+                const contentId = this.getAttribute('data-tab');
+                document.getElementById(contentId).classList.add('active');
+            });
+        });
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).classList.add('active');
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+
+        // Charts
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 19000, 15000, 25000, 22000, 30000],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#f8fafc'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#f8fafc'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#f8fafc'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Order Status Chart
+        const orderCtx = document.getElementById('orderChart').getContext('2d');
+        new Chart(orderCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Completed', 'Pending', 'In Progress'],
+                datasets: [{
+                    data: [65, 20, 15],
+                    backgroundColor: ['#10b981', '#f59e0b', '#6366f1']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#f8fafc'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Category Chart
+        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+        new Chart(categoryCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Beauty', 'Tech', 'Food', 'Sports', 'Auto', 'Travel'],
+                datasets: [{
+                    label: 'Revenue',
+                    data: [12000, 18000, 8000, 6000, 4000, 3000],
+                    backgroundColor: [
+                        '#ec4899',
+                        '#6366f1',
+                        '#f59e0b',
+                        '#10b981',
+                        '#06b6d4',
+                        '#8b5cf6'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#f8fafc'
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            color: '#f8fafc'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#f8fafc'
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Creator Performance Chart
+        const creatorCtx = document.getElementById('creatorChart').getContext('2d');
+        new Chart(creatorCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Quality', 'Speed', 'Communication', 'Creativity', 'Reliability'],
+                datasets: [{
+                    label: 'Average Score',
+                    data: [4.5, 4.2, 4.8, 4.6, 4.7],
+                    borderColor: '#6366f1',
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)',
+                    pointBackgroundColor: '#6366f1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#f8fafc'
+                        }
+                    }
+                },
+                scales: {
+                    r: {
+                        ticks: {
+                            color: '#f8fafc',
+                            stepSize: 1
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        pointLabels: {
+                            color: '#f8fafc'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Real-time updates simulation
+        setInterval(() => {
+            // Update stats randomly
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(stat => {
+                const currentValue = parseInt(stat.textContent.replace(/[^0-9]/g, ''));
+                const change = Math.floor(Math.random() * 10) - 5;
+                const newValue = Math.max(0, currentValue + change);
+                stat.textContent = stat.textContent.replace(/\d+/, newValue);
+            });
+        }, 30000); // Update every 30 seconds
+    </script>
+</body>
+</html>

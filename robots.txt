@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://contentbridge-armenia.vercel.app/sitemap.xml
+
+# Disallow admin panel from search engines
+Disallow: /admin.html
+
+# Allow all other pages
+Allow: /index.html
+Allow: /thanks.html
+
+# Crawl delay (optional)
+Crawl-delay: 1
