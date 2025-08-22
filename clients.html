@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Clients - ContentBridge Armenia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .language-switch {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .lang-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 1rem;
+            font-size: 1.25rem;
+        }
+
+        .step-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .step-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            padding: 4rem 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 4rem;
+            color: var(--primary);
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            opacity: 0.3;
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-info p {
+            opacity: 0.7;
+            font-size: 0.875rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .cta-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .cta-content p {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            display: inline-block;
+            margin: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            opacity: 0.8;
+            font-size: 1.125rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-content h2 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">ContentBridge Armenia</div>
+                <ul class="nav-links">
+                    <li><a href="index.html" data-lang-en="Home" data-lang-ru="Главная">Home</a></li>
+                    <li><a href="index.html#features" data-lang-en="Features" data-lang-ru="Возможности">Features</a></li>
+                    <li><a href="creators.html" data-lang-en="Creators" data-lang-ru="Создатели">Creators</a></li>
+                    <li><a href="clients.html" data-lang-en="For Clients" data-lang-ru="Для клиентов">For Clients</a></li>
+                    <li><a href="index.html#pricing" data-lang-en="Pricing" data-lang-ru="Цены">Pricing</a></li>
+                </ul>
+                <div class="language-switch">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="ru">RU</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1 class="animate" data-lang-en="Grow Your Business with UGC" data-lang-ru="Развивайте свой бизнес с UGC">Grow Your Business with UGC</h1>
+            <p class="animate" data-lang-en="Connect with verified Armenian creators to create authentic, engaging content that drives results. Our secure escrow system ensures quality delivery and protects your investment." data-lang-ru="Свяжитесь с проверенными армянскими создателями для создания аутентичного, увлекательного контента, который приносит результаты. Наша безопасная система эскроу обеспечивает качественную доставку и защищает ваши инвестиции.">Connect with verified Armenian creators to create authentic, engaging content that drives results. Our secure escrow system ensures quality delivery and protects your investment.</p>
+            <div class="animate">
+                <a href="index.html#contact" class="btn btn-primary" data-lang-en="Start Your Project" data-lang-ru="Начать проект">Start Your Project</a>
+                <a href="creators.html" class="btn btn-secondary" data-lang-en="Browse Creators" data-lang-ru="Просмотреть создателей">Browse Creators</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="container">
+            <h2 class="section-title" data-lang-en="Why Choose ContentBridge?" data-lang-ru="Почему ContentBridge?">Why Choose ContentBridge?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 data-lang-en="Secure Escrow System" data-lang-ru="Безопасная система эскроу">Secure Escrow System</h3>
+                    <p data-lang-en="Your payment is held securely until you approve the final content. No risk, guaranteed quality." data-lang-ru="Ваш платеж надежно хранится до тех пор, пока вы не одобрите финальный контент. Никакого риска, гарантированное качество.">Your payment is held securely until you approve the final content. No risk, guaranteed quality.</p>
+                </div>
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 data-lang-en="Verified Creators" data-lang-ru="Проверенные создатели">Verified Creators</h3>
+                    <p data-lang-en="All creators are thoroughly vetted and verified. Quality guaranteed with every project." data-lang-ru="Все создатели тщательно проверяются и верифицируются. Качество гарантировано с каждым проектом.">All creators are thoroughly vetted and verified. Quality guaranteed with every project.</p>
+                </div>
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 data-lang-en="Fast Delivery" data-lang-ru="Быстрая доставка">Fast Delivery</h3>
+                    <p data-lang-en="Get your content delivered within 1-2 weeks. Rush orders available for urgent projects." data-lang-ru="Получите свой контент в течение 1-2 недель. Срочные заказы доступны для неотложных проектов.">Get your content delivered within 1-2 weeks. Rush orders available for urgent projects.</p>
+                </div>
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 data-lang-en="Proven Results" data-lang-ru="Доказанные результаты">Proven Results</h3>
+                    <p data-lang-en="Our clients see an average 40% increase in engagement with UGC content." data-lang-ru="Наши клиенты видят в среднем 40% увеличение вовлеченности с UGC контентом.">Our clients see an average 40% increase in engagement with UGC content.</p>
+                </div>
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 data-lang-en="Global Reach" data-lang-ru="Глобальный охват">Global Reach</h3>
+                    <p data-lang-en="Armenian creators bring unique perspectives that resonate with global audiences." data-lang-ru="Армянские создатели приносят уникальные перспективы, которые находят отклик у глобальной аудитории.">Armenian creators bring unique perspectives that resonate with global audiences.</p>
+                </div>
+                <div class="benefit-card glass">
+                    <div class="benefit-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3 data-lang-en="24/7 Support" data-lang-ru="Поддержка 24/7">24/7 Support</h3>
+                    <p data-lang-en="Our dedicated team is here to help you succeed with your content strategy." data-lang-ru="Наша преданная команда здесь, чтобы помочь вам добиться успеха с вашей контент-стратегией.">Our dedicated team is here to help you succeed with your content strategy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process">
+        <div class="container">
+            <h2 class="section-title" data-lang-en="How It Works" data-lang-ru="Как это работает">How It Works</h2>
+            <div class="process-steps">
+                <div class="step-card glass">
+                    <div class="step-number">1</div>
+                    <h3 data-lang-en="Submit Your Brief" data-lang-ru="Отправьте бриф">Submit Your Brief</h3>
+                    <p data-lang-en="Tell us about your project, budget, and requirements. We'll match you with the perfect creators." data-lang-ru="Расскажите нам о своем проекте, бюджете и требованиях. Мы подберем для вас идеальных создателей.">Tell us about your project, budget, and requirements. We'll match you with the perfect creators.</p>
+                </div>
+                <div class="step-card glass">
+                    <div class="step-number">2</div>
+                    <h3 data-lang-en="Creator Matching" data-lang-ru="Подбор создателей">Creator Matching</h3>
+                    <p data-lang-en="Within 24 hours, we'll introduce you to 2-3 verified creators who match your criteria." data-lang-ru="В течение 24 часов мы познакомим вас с 2-3 проверенными создателями, которые соответствуют вашим критериям.">Within 24 hours, we'll introduce you to 2-3 verified creators who match your criteria.</p>
+                </div>
+                <div class="step-card glass">
+                    <div class="step-number">3</div>
+                    <h3 data-lang-en="Content Creation" data-lang-ru="Создание контента">Content Creation</h3>
+                    <p data-lang-en="Your chosen creator will produce high-quality content according to your specifications." data-lang-ru="Выбранный вами создатель создаст высококачественный контент в соответствии с вашими спецификациями.">Your chosen creator will produce high-quality content according to your specifications.</p>
+                </div>
+                <div class="step-card glass">
+                    <div class="step-number">4</div>
+                    <h3 data-lang-en="Review & Approve" data-lang-ru="Проверка и одобрение">Review & Approve</h3>
+                    <p data-lang-en="Review the content and approve it. Only then will payment be released to the creator." data-lang-ru="Проверьте контент и одобрите его. Только тогда платеж будет переведен создателю.">Review the content and approve it. Only then will payment be released to the creator.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title" data-lang-en="Our Impact" data-lang-ru="Наше влияние">Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card glass">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label" data-lang-en="Projects Completed" data-lang-ru="Завершенных проектов">Projects Completed</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label" data-lang-en="Happy Clients" data-lang-ru="Довольных клиентов">Happy Clients</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label" data-lang-en="Satisfaction Rate" data-lang-ru="Уровень удовлетворенности">Satisfaction Rate</div>
+                </div>
+                <div class="stat-card glass">
+                    <div class="stat-number">24h</div>
+                    <div class="stat-label" data-lang-en="Average Response" data-lang-ru="Среднее время ответа">Average Response</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title" data-lang-en="What Our Clients Say" data-lang-ru="Что говорят наши клиенты">What Our Clients Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card glass">
+                    <div class="testimonial-content">
+                        <p data-lang-en="ContentBridge helped us scale our content production by 300%. The quality and authenticity of the UGC content exceeded our expectations." data-lang-ru="ContentBridge помог нам увеличить производство контента на 300%. Качество и аутентичность UGC контента превзошли наши ожидания.">ContentBridge helped us scale our content production by 300%. The quality and authenticity of the UGC content exceeded our expectations.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" alt="John Smith" class="author-avatar">
+                        <div class="author-info">
+                            <h4>John Smith</h4>
+                            <p data-lang-en="Marketing Director, TechCorp" data-lang-ru="Директор по маркетингу, TechCorp">Marketing Director, TechCorp</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass">
+                    <div class="testimonial-content">
+                        <p data-lang-en="The escrow system gave us peace of mind. We knew our investment was protected while getting amazing content from Armenian creators." data-lang-ru="Система эскроу дала нам спокойствие. Мы знали, что наши инвестиции защищены, получая удивительный контент от армянских создателей.">The escrow system gave us peace of mind. We knew our investment was protected while getting amazing content from Armenian creators.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face" alt="Sarah Johnson" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Sarah Johnson</h4>
+                            <p data-lang-en="CEO, BeautyBox" data-lang-ru="CEO, BeautyBox">CEO, BeautyBox</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card glass">
+                    <div class="testimonial-content">
+                        <p data-lang-en="Fast delivery, excellent communication, and authentic content that our audience loves. ContentBridge is our go-to platform for UGC." data-lang-ru="Быстрая доставка, отличная коммуникация и аутентичный контент, который любит наша аудитория. ContentBridge - наша основная платформа для UGC.">Fast delivery, excellent communication, and authentic content that our audience loves. ContentBridge is our go-to platform for UGC.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face" alt="Mike Chen" class="author-avatar">
+                        <div class="author-info">
+                            <h4>Mike Chen</h4>
+                            <p data-lang-en="Founder, FoodExpress" data-lang-ru="Основатель, FoodExpress">Founder, FoodExpress</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="animate" data-lang-en="Ready to Transform Your Content Strategy?" data-lang-ru="Готовы трансформировать вашу контент-стратегию?">Ready to Transform Your Content Strategy?</h2>
+                <p class="animate" data-lang-en="Join hundreds of businesses already using ContentBridge to create authentic, engaging content that drives results." data-lang-ru="Присоединяйтесь к сотням бизнесов, которые уже используют ContentBridge для создания аутентичного, увлекательного контента, который приносит результаты.">Join hundreds of businesses already using ContentBridge to create authentic, engaging content that drives results.</p>
+                <div class="animate">
+                    <a href="index.html#contact" class="btn btn-primary" data-lang-en="Start Your Project" data-lang-ru="Начать проект">Start Your Project</a>
+                    <a href="creators.html" class="btn btn-secondary" data-lang-en="Browse Creators" data-lang-ru="Просмотреть создателей">Browse Creators</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Language switching functionality
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const langElements = document.querySelectorAll('[data-lang-en]');
+        
+        // Load saved language preference
+        const savedLang = localStorage.getItem('preferred-language') || 'en';
+        setLanguage(savedLang);
+
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.dataset.lang;
+                setLanguage(lang);
+                localStorage.setItem('preferred-language', lang);
+            });
+        });
+
+        function setLanguage(lang) {
+            // Update button states
+            langButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            // Update content
+            langElements.forEach(element => {
+                const text = element.dataset[`lang-${lang}`];
+                if (text) {
+                    element.textContent = text;
+                }
+            });
+        }
+
+        // Google Analytics
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5BJ9JRVE9C');
+
+        // Track page view
+        gtag('event', 'page_view', {
+            'page_title': 'For Clients - ContentBridge Armenia',
+            'page_location': window.location.href
+        });
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5BJ9JRVE9C"></script>
+</body>
+</html>

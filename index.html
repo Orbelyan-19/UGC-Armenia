@@ -261,6 +261,122 @@
             line-height: 1.6;
         }
 
+        /* Creators Section */
+        .creators {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.125rem;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .creators-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .creator-card {
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .creator-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .creator-avatar {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .creator-avatar img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary);
+        }
+
+        .verification-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 50%;
+            transform: translateX(50%);
+            background: var(--success);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+
+        .creator-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .creator-category {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .creator-stats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .projects {
+            opacity: 0.8;
+            font-size: 0.875rem;
+        }
+
+        .creator-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            background: rgba(99, 102, 241, 0.2);
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .creators-cta {
+            text-align: center;
+        }
+
         /* Pricing Section */
         .pricing {
             padding: 6rem 0;
@@ -486,6 +602,8 @@
                 <ul class="nav-links">
                     <li><a href="#home" data-lang-en="Home" data-lang-ru="Главная">Home</a></li>
                     <li><a href="#features" data-lang-en="Features" data-lang-ru="Возможности">Features</a></li>
+                    <li><a href="#creators" data-lang-en="Creators" data-lang-ru="Создатели">Creators</a></li>
+                    <li><a href="clients.html" data-lang-en="For Clients" data-lang-ru="Для клиентов">For Clients</a></li>
                     <li><a href="#pricing" data-lang-en="Pricing" data-lang-ru="Цены">Pricing</a></li>
                     <li><a href="#contact" data-lang-en="Contact" data-lang-ru="Контакты">Contact</a></li>
                 </ul>
@@ -563,6 +681,94 @@
                     <h3 data-lang-en="Mobile Responsive" data-lang-ru="Адаптивность">Mobile Responsive</h3>
                     <p data-lang-en="Optimized for all devices with premium animations and modern UI." data-lang-ru="Оптимизировано для всех устройств с премиальными анимациями и современным интерфейсом.">Optimized for all devices with premium animations and modern UI.</p>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Top Creators Section -->
+    <section class="creators" id="creators">
+        <div class="container">
+            <h2 class="section-title" data-lang-en="Top Armenian Creators" data-lang-ru="Лучшие армянские создатели">Top Armenian Creators</h2>
+            <p class="section-subtitle" data-lang-en="Discover verified creators ready to bring your vision to life" data-lang-ru="Откройте для себя проверенных создателей, готовых воплотить ваше видение в жизнь">Discover verified creators ready to bring your vision to life</p>
+            <div class="creators-grid">
+                <div class="creator-card glass">
+                    <div class="creator-avatar">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face" alt="Ani Hovhannisyan">
+                        <div class="verification-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="creator-info">
+                        <h3>Ani Hovhannisyan</h3>
+                        <p class="creator-category">Tech & Lifestyle</p>
+                        <div class="creator-stats">
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                4.8
+                            </span>
+                            <span class="projects">45 projects</span>
+                        </div>
+                        <div class="creator-tags">
+                            <span class="tag">Tech Reviews</span>
+                            <span class="tag">Lifestyle</span>
+                            <span class="tag">Product Demos</span>
+                        </div>
+                        <a href="creator.html?id=ani" class="btn btn-secondary">View Profile</a>
+                    </div>
+                </div>
+                <div class="creator-card glass">
+                    <div class="creator-avatar">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face" alt="Maria Petrosyan">
+                        <div class="verification-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="creator-info">
+                        <h3>Maria Petrosyan</h3>
+                        <p class="creator-category">Beauty & Fashion</p>
+                        <div class="creator-stats">
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                4.6
+                            </span>
+                            <span class="projects">32 projects</span>
+                        </div>
+                        <div class="creator-tags">
+                            <span class="tag">Beauty</span>
+                            <span class="tag">Fashion</span>
+                            <span class="tag">Makeup</span>
+                        </div>
+                        <a href="creator.html?id=maria" class="btn btn-secondary">View Profile</a>
+                    </div>
+                </div>
+                <div class="creator-card glass">
+                    <div class="creator-avatar">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face" alt="David Karapetyan">
+                        <div class="verification-badge">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <div class="creator-info">
+                        <h3>David Karapetyan</h3>
+                        <p class="creator-category">Food & Travel</p>
+                        <div class="creator-stats">
+                            <span class="rating">
+                                <i class="fas fa-star"></i>
+                                4.9
+                            </span>
+                            <span class="projects">28 projects</span>
+                        </div>
+                        <div class="creator-tags">
+                            <span class="tag">Food</span>
+                            <span class="tag">Travel</span>
+                            <span class="tag">Cooking</span>
+                        </div>
+                        <a href="creator.html?id=david" class="btn btn-secondary">View Profile</a>
+                    </div>
+                </div>
+            </div>
+            <div class="creators-cta">
+                <a href="creators.html" class="btn btn-primary" data-lang-en="Browse All Creators" data-lang-ru="Просмотреть всех создателей">Browse All Creators</a>
             </div>
         </div>
     </section>

@@ -8,9 +8,30 @@ A modern, dark-themed UGC (User Generated Content) marketplace website connectin
 - **Dark Theme with Glassmorphism**: Modern design with glass effects and gradients
 - **EN/RU Language Switching**: Full bilingual support with localStorage persistence
 - **Responsive Design**: Mobile-optimized with premium animations
+- **Top Creators Section**: Showcase of verified Armenian creators
 - **Formspree Integration**: Working contact form with email notifications
 - **Google Analytics**: GA4 tracking with event monitoring
 - **Anti-bypass Protection**: Hidden contact information and security features
+
+### Creators Directory (`creators.html`)
+- **Advanced Search & Filters**: Search by name, category, and rating
+- **Creator Cards**: Detailed profiles with ratings, projects, and pricing
+- **Responsive Grid**: Mobile-optimized layout
+- **Direct Booking**: Quick access to hire creators
+
+### Creator Profiles (`creator.html`)
+- **Detailed Profiles**: Complete creator information and portfolio
+- **Portfolio Showcase**: Visual gallery of past work
+- **Client Reviews**: Authentic testimonials and ratings
+- **Pricing Information**: Transparent pricing and features
+- **Booking Integration**: Direct project initiation
+
+### Business Page (`clients.html`)
+- **Business Benefits**: Clear value proposition for companies
+- **Process Overview**: Step-by-step workflow explanation
+- **Client Testimonials**: Success stories and case studies
+- **Statistics**: Impact metrics and achievements
+- **Call-to-Action**: Multiple conversion opportunities
 
 ### Admin Panel (`admin.html`)
 - **Comprehensive Dashboard**: Real-time stats, charts, and analytics
@@ -50,7 +71,10 @@ A modern, dark-themed UGC (User Generated Content) marketplace website connectin
 
 ```
 ContentBridge Armenia/
-├── index.html          # Main landing page
+├── index.html          # Main landing page with top creators section
+├── creators.html       # Creators directory with search and filters
+├── creator.html        # Individual creator profile pages
+├── clients.html        # Business-focused page for clients
 ├── admin.html          # Admin dashboard
 ├── thanks.html         # Thank you page
 ├── robots.txt          # SEO configuration
