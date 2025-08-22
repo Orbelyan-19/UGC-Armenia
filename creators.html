@@ -3,25 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Creators - ContentBridge Armenia</title>
+    <title>Creators Directory - ContentBridge Armenia</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary: #ec4899;
-            --accent: #06b6d4;
-            --success: #10b981;
-            --warning: #f59e0b;
+            --primary: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --accent-light: #34d399;
             --danger: #ef4444;
+            --warning: #f59e0b;
+            --success: #10b981;
             --dark: #0f172a;
             --darker: #020617;
+            --dark-light: #1e293b;
             --light: #f8fafc;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --light-gray: #e2e8f0;
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.15);
+            --glass-hover: rgba(255, 255, 255, 0.12);
+            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            --gradient-secondary: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            --gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            --gradient-hero: linear-gradient(135deg, #8b5cf6 0%, #f59e0b 50%, #10b981 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
         }
 
         * {
@@ -32,16 +45,48 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            background: radial-gradient(ellipse at top, var(--dark-light) 0%, var(--darker) 50%, var(--dark) 100%);
             color: var(--light);
             overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+            z-index: -1;
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(30px, -30px) rotate(1deg); }
+            66% { transform: translate(-20px, 20px) rotate(-1deg); }
         }
 
         .glass {
             background: var(--glass);
             backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .glass:hover {
+            background: var(--glass-hover);
+            border-color: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
         }
 
         .container {
@@ -59,6 +104,9 @@
             z-index: 1000;
             padding: 1rem 0;
             transition: all 0.3s ease;
+        }
+
+        header.scrolled {
             background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(20px);
         }
@@ -72,7 +120,7 @@
         .logo {
             font-size: 1.5rem;
             font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -106,14 +154,69 @@
             border: 1px solid var(--glass-border);
             color: var(--light);
             padding: 0.5rem 1rem;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.875rem;
+            min-width: 45px;
+        }
+
+        .lang-btn:hover {
+            background: var(--glass-hover);
+            transform: translateY(-1px);
         }
 
         .lang-btn.active {
-            background: var(--primary);
+            background: var(--gradient-primary);
             border-color: var(--primary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .currency-switch {
+            display: flex;
+            gap: 0.25rem;
+            margin-left: 1rem;
+            padding-left: 1rem;
+            border-left: 1px solid var(--glass-border);
+        }
+
+        .currency-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+            padding: 0.25rem 0.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 500;
+            font-size: 0.75rem;
+            min-width: 35px;
+        }
+
+        .currency-btn:hover {
+            background: var(--glass-hover);
+            transform: translateY(-1px);
+        }
+
+        .currency-btn.active {
+            background: var(--gradient-secondary);
+            border-color: var(--secondary);
+            box-shadow: var(--shadow-md);
+        }
+
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: var(--light);
+            margin: 3px 0;
+            transition: 0.3s;
         }
 
         /* Hero Section */
@@ -123,13 +226,15 @@
         }
 
         .hero h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            background: var(--gradient-hero);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
         .hero p {
@@ -144,87 +249,70 @@
         /* Filters Section */
         .filters {
             padding: 2rem 0;
-            background: rgba(255, 255, 255, 0.02);
+            margin-bottom: 2rem;
         }
 
         .filters-content {
             display: flex;
             gap: 1rem;
-            align-items: center;
             flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
         }
 
-        .search-box {
-            flex: 1;
-            min-width: 300px;
-            position: relative;
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .search-box input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
+        .filter-group label {
+            font-weight: 500;
+            font-size: 0.875rem;
+            color: rgba(248, 250, 252, 0.8);
+        }
+
+        .filter-input {
+            padding: 0.75rem 1rem;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             background: var(--glass);
             color: var(--light);
             font-family: inherit;
+            transition: all 0.3s ease;
+            min-width: 200px;
         }
 
-        .search-box i {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary);
+        .filter-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
 
         .filter-select {
-            padding: 1rem;
+            padding: 0.75rem 1rem;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             background: var(--glass);
             color: var(--light);
             font-family: inherit;
-            min-width: 150px;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
             transition: all 0.3s ease;
-            border: none;
+            min-width: 150px;
             cursor: pointer;
-            font-size: 1rem;
         }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-        }
-
-        .btn-secondary {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: var(--light);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
         }
 
         /* Creators Grid */
-        .creators-section {
-            padding: 4rem 0;
-        }
-
         .creators-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-bottom: 4rem;
         }
 
         .creator-card {
@@ -232,7 +320,20 @@
             text-align: center;
             transition: transform 0.3s ease;
             position: relative;
-            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .creator-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-primary);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30px, -30px);
         }
 
         .creator-card:hover {
@@ -250,6 +351,12 @@
             border-radius: 50%;
             object-fit: cover;
             border: 3px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .creator-card:hover .creator-avatar img {
+            border-color: var(--secondary);
+            transform: scale(1.05);
         }
 
         .verification-badge {
@@ -266,6 +373,7 @@
             align-items: center;
             justify-content: center;
             font-size: 0.875rem;
+            box-shadow: var(--shadow-md);
         }
 
         .creator-info h3 {
@@ -278,6 +386,9 @@
             color: var(--primary);
             font-weight: 500;
             margin-bottom: 1rem;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .creator-stats {
@@ -309,89 +420,138 @@
         }
 
         .tag {
-            background: rgba(99, 102, 241, 0.2);
+            background: rgba(139, 92, 246, 0.2);
             color: var(--primary);
             padding: 0.25rem 0.75rem;
             border-radius: 12px;
             font-size: 0.75rem;
             font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .tag:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-1px);
         }
 
         .creator-price {
             font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--success);
+            font-weight: 700;
             margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .creator-actions {
-            display: flex;
-            gap: 0.5rem;
-            justify-content: center;
-        }
-
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-        }
-
-        /* Pagination */
-        .pagination {
-            display: flex;
-            justify-content: center;
-            gap: 0.5rem;
-            margin-top: 3rem;
-        }
-
-        .page-btn {
-            padding: 0.75rem 1rem;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            color: var(--light);
-            border-radius: 8px;
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
             cursor: pointer;
-            transition: all 0.3s ease;
+            font-size: 0.875rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .page-btn.active {
-            background: var(--primary);
-            border-color: var(--primary);
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            position: relative;
+            overflow: hidden;
         }
 
-        .page-btn:hover {
-            background: var(--primary);
-            border-color: var(--primary);
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .filters-content {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .search-box {
-                min-width: auto;
-            }
-
-            .creators-grid {
-                grid-template-columns: 1fr;
-            }
+        .btn-primary:hover::before {
+            left: 100%;
         }
 
-        /* Animation */
+        .btn-secondary {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            color: var(--light);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: rgba(248, 250, 252, 0.8);
+        }
+
+        .no-results p {
+            color: rgba(248, 250, 252, 0.6);
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -406,24 +566,74 @@
         .animate {
             animation: fadeInUp 0.6s ease forwards;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .filters-content {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .filter-input,
+            .filter-select {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .creators-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container">
             <nav>
                 <div class="logo">ContentBridge Armenia</div>
                 <ul class="nav-links">
-                    <li><a href="index.html" data-lang-en="Home" data-lang-ru="Главная">Home</a></li>
-                    <li><a href="index.html#features" data-lang-en="Features" data-lang-ru="Возможности">Features</a></li>
-                    <li><a href="creators.html" data-lang-en="Creators" data-lang-ru="Создатели">Creators</a></li>
-                    <li><a href="clients.html" data-lang-en="For Clients" data-lang-ru="Для клиентов">For Clients</a></li>
-                    <li><a href="index.html#pricing" data-lang-en="Pricing" data-lang-ru="Цены">Pricing</a></li>
+                    <li><a href="index.html" data-lang-en="Home" data-lang-ru="Главная" data-lang-am="Գլխավոր">Home</a></li>
+                    <li><a href="index.html#features" data-lang-en="Features" data-lang-ru="Возможности" data-lang-am="Հնարավորություններ">Features</a></li>
+                    <li><a href="creators.html" data-lang-en="Creators" data-lang-ru="Создатели" data-lang-am="Ստեղծագործողներ">Creators</a></li>
+                    <li><a href="clients.html" data-lang-en="For Clients" data-lang-ru="Для клиентов" data-lang-am="Հաճախորդների համար">For Clients</a></li>
+                    <li><a href="index.html#pricing" data-lang-en="Pricing" data-lang-ru="Цены" data-lang-am="Գնագոյացում">Pricing</a></li>
+                    <li><a href="index.html#contact" data-lang-en="Contact" data-lang-ru="Контакты" data-lang-am="Կապ">Contact</a></li>
                 </ul>
                 <div class="language-switch">
                     <button class="lang-btn active" data-lang="en">EN</button>
                     <button class="lang-btn" data-lang="ru">RU</button>
+                    <button class="lang-btn" data-lang="am">ՀԱՅ</button>
+                    <div class="currency-switch">
+                        <button class="currency-btn active" data-currency="usd">USD</button>
+                        <button class="currency-btn" data-currency="amd">AMD</button>
+                    </div>
+                </div>
+                <div class="mobile-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </div>
             </nav>
         </div>
@@ -432,8 +642,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1 class="animate" data-lang-en="Find Your Perfect Creator" data-lang-ru="Найдите своего идеального создателя">Find Your Perfect Creator</h1>
-            <p class="animate" data-lang-en="Browse our verified Armenian creators and find the perfect match for your project. From tech reviews to beauty content, we have creators for every niche." data-lang-ru="Просмотрите наших проверенных армянских создателей и найдите идеальное соответствие для вашего проекта. От обзоров технологий до контента о красоте - у нас есть создатели для каждой ниши.">Browse our verified Armenian creators and find the perfect match for your project. From tech reviews to beauty content, we have creators for every niche.</p>
+            <h1 class="animate" data-lang-en="Discover Armenian Creators" data-lang-ru="Откройте армянских создателей" data-lang-am="Բացահայտեք հայ ստեղծագործողներին">Discover Armenian Creators</h1>
+            <p class="animate" data-lang-en="Connect with verified content creators ready to bring your vision to life. From tech reviews to beauty tutorials, find the perfect creator for your project." data-lang-ru="Соединитесь с проверенными создателями контента, готовыми воплотить ваше видение в жизнь. От обзоров технологий до уроков красоты - найдите идеального создателя для вашего проекта." data-lang-am="Միացեք ստուգված բովանդակության ստեղծագործողների հետ, ովքեր պատրաստ են կյանքի կոչել ձեր տեսլականը: Տեխնոլոգիաների ակնարկներից մինչև գեղեցկության դասեր - գտեք ձեր նախագծի համար կատարյալ ստեղծագործող:">Connect with verified content creators ready to bring your vision to life. From tech reviews to beauty tutorials, find the perfect creator for your project.</p>
         </div>
     </section>
 
@@ -441,46 +651,59 @@
     <section class="filters">
         <div class="container">
             <div class="filters-content">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search creators..." id="searchInput">
+                <div class="filter-group">
+                    <label for="search" data-lang-en="Search" data-lang-ru="Поиск" data-lang-am="Որոնում">Search</label>
+                    <input type="text" id="search" class="filter-input" placeholder="Search creators..." data-lang-en="Search creators..." data-lang-ru="Поиск создателей..." data-lang-am="Որոնել ստեղծագործողներ...">
                 </div>
-                <select class="filter-select" id="categoryFilter">
-                    <option value="" data-lang-en="All Categories" data-lang-ru="Все категории">All Categories</option>
-                    <option value="tech" data-lang-en="Technology" data-lang-ru="Технологии">Technology</option>
-                    <option value="beauty" data-lang-en="Beauty & Fashion" data-lang-ru="Красота и мода">Beauty & Fashion</option>
-                    <option value="food" data-lang-en="Food & Cooking" data-lang-ru="Еда и готовка">Food & Cooking</option>
-                    <option value="sports" data-lang-en="Sports & Fitness" data-lang-ru="Спорт и фитнес">Sports & Fitness</option>
-                    <option value="auto" data-lang-en="Automotive" data-lang-ru="Автомобили">Automotive</option>
-                    <option value="travel" data-lang-en="Travel & Lifestyle" data-lang-ru="Путешествия и образ жизни">Travel & Lifestyle</option>
-                </select>
-                <select class="filter-select" id="ratingFilter">
-                    <option value="" data-lang-en="All Ratings" data-lang-ru="Все рейтинги">All Ratings</option>
-                    <option value="4.5" data-lang-en="4.5+ Stars" data-lang-ru="4.5+ звезд">4.5+ Stars</option>
-                    <option value="4.0" data-lang-en="4.0+ Stars" data-lang-ru="4.0+ звезд">4.0+ Stars</option>
-                    <option value="3.5" data-lang-en="3.5+ Stars" data-lang-ru="3.5+ звезд">3.5+ Stars</option>
-                </select>
-                <button class="btn btn-primary" onclick="applyFilters()" data-lang-en="Apply Filters" data-lang-ru="Применить фильтры">Apply Filters</button>
+                <div class="filter-group">
+                    <label for="category" data-lang-en="Category" data-lang-ru="Категория" data-lang-am="Կատեգորիա">Category</label>
+                    <select id="category" class="filter-select">
+                        <option value="" data-lang-en="All Categories" data-lang-ru="Все категории" data-lang-am="Բոլոր կատեգորիաները">All Categories</option>
+                        <option value="beauty" data-lang-en="Beauty & Fashion" data-lang-ru="Красота и мода" data-lang-am="Գեղեցկություն և նորաձևություն">Beauty & Fashion</option>
+                        <option value="tech" data-lang-en="Technology" data-lang-ru="Технологии" data-lang-am="Տեխնոլոգիաներ">Technology</option>
+                        <option value="food" data-lang-en="Food & Cooking" data-lang-ru="Еда и готовка" data-lang-am="Սնունդ և պատրաստում">Food & Cooking</option>
+                        <option value="sports" data-lang-en="Sports & Fitness" data-lang-ru="Спорт и фитнес" data-lang-am="Սպորտ և ֆիթնես">Sports & Fitness</option>
+                        <option value="auto" data-lang-en="Automotive" data-lang-ru="Автомобили" data-lang-am="Ավտոմեքենաներ">Automotive</option>
+                        <option value="travel" data-lang-en="Travel & Lifestyle" data-lang-ru="Путешествия и образ жизни" data-lang-am="Ճանապարհորդություն և ապրելակերպ">Travel & Lifestyle</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="rating" data-lang-en="Rating" data-lang-ru="Рейтинг" data-lang-am="Գնահատական">Rating</label>
+                    <select id="rating" class="filter-select">
+                        <option value="" data-lang-en="All Ratings" data-lang-ru="Все рейтинги" data-lang-am="Բոլոր գնահատականները">All Ratings</option>
+                        <option value="4.5" data-lang-en="4.5+ Stars" data-lang-ru="4.5+ звезд" data-lang-am="4.5+ աստղ">4.5+ Stars</option>
+                        <option value="4.0" data-lang-en="4.0+ Stars" data-lang-ru="4.0+ звезд" data-lang-am="4.0+ աստղ">4.0+ Stars</option>
+                        <option value="3.5" data-lang-en="3.5+ Stars" data-lang-ru="3.5+ звезд" data-lang-am="3.5+ աստղ">3.5+ Stars</option>
+                    </select>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Creators Section -->
+    <!-- Creators Grid -->
     <section class="creators-section">
         <div class="container">
             <div class="creators-grid" id="creatorsGrid">
-                <!-- Creator cards will be populated by JavaScript -->
-            </div>
-            
-            <!-- Pagination -->
-            <div class="pagination" id="pagination">
-                <button class="page-btn active">1</button>
-                <button class="page-btn">2</button>
-                <button class="page-btn">3</button>
-                <button class="page-btn">Next</button>
+                <!-- Creators will be dynamically loaded here -->
             </div>
         </div>
     </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <p>&copy; 2024 ContentBridge Armenia. <span data-lang-en="All rights reserved." data-lang-ru="Все права защищены." data-lang-am="Բոլոր իրավունքները պաշտպանված են:">All rights reserved.</span></p>
+                </div>
+                <div class="social-links">
+                    <a href="#" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <a href="#" title="Telegram"><i class="fab fa-telegram"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         // Sample creators data
@@ -489,83 +712,106 @@
                 id: 'ani',
                 name: 'Ani Hovhannisyan',
                 category: 'Tech & Lifestyle',
+                categoryValue: 'tech',
                 rating: 4.8,
                 projects: 45,
                 tags: ['Tech Reviews', 'Lifestyle', 'Product Demos'],
-                price: '$150-300',
-                image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
+                price: 150,
+                avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face',
                 verified: true
             },
             {
                 id: 'maria',
                 name: 'Maria Petrosyan',
                 category: 'Beauty & Fashion',
+                categoryValue: 'beauty',
                 rating: 4.6,
                 projects: 32,
                 tags: ['Beauty', 'Fashion', 'Makeup'],
-                price: '$80-200',
-                image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
+                price: 80,
+                avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face',
                 verified: true
             },
             {
                 id: 'david',
                 name: 'David Karapetyan',
                 category: 'Food & Travel',
+                categoryValue: 'food',
                 rating: 4.9,
                 projects: 28,
                 tags: ['Food', 'Travel', 'Cooking'],
-                price: '$120-250',
-                image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
+                price: 120,
+                avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face',
                 verified: true
             },
             {
-                id: 'lisa',
-                name: 'Lisa Sargsyan',
+                id: 'lilit',
+                name: 'Lilit Sargsyan',
                 category: 'Sports & Fitness',
+                categoryValue: 'sports',
                 rating: 4.7,
                 projects: 38,
-                tags: ['Fitness', 'Sports', 'Health'],
-                price: '$100-220',
-                image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
+                tags: ['Fitness', 'Workout', 'Health'],
+                price: 100,
+                avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face',
                 verified: true
             },
             {
                 id: 'armen',
-                name: 'Armen Vardanyan',
+                name: 'Armen Melkumyan',
                 category: 'Automotive',
+                categoryValue: 'auto',
                 rating: 4.5,
-                projects: 25,
-                tags: ['Cars', 'Reviews', 'Automotive'],
-                price: '$200-400',
-                image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
+                projects: 22,
+                tags: ['Cars', 'Reviews', 'Auto'],
+                price: 200,
+                avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
                 verified: true
             },
             {
-                id: 'nina',
-                name: 'Nina Avetisyan',
+                id: 'nare',
+                name: 'Nare Karapetyan',
                 category: 'Travel & Lifestyle',
+                categoryValue: 'travel',
                 rating: 4.8,
-                projects: 42,
+                projects: 41,
                 tags: ['Travel', 'Lifestyle', 'Adventure'],
-                price: '$150-350',
-                image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
+                price: 180,
+                avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face',
                 verified: true
             }
         ];
 
-        // Language switching functionality
+        // Language and currency switching functionality
         const langButtons = document.querySelectorAll('.lang-btn');
+        const currencyButtons = document.querySelectorAll('.currency-btn');
         const langElements = document.querySelectorAll('[data-lang-en]');
         
-        // Load saved language preference
+        // Currency conversion rates (approximate)
+        const exchangeRates = {
+            usd: 1,
+            amd: 400 // 1 USD ≈ 400 AMD
+        };
+        
+        // Load saved preferences
         const savedLang = localStorage.getItem('preferred-language') || 'en';
+        const savedCurrency = localStorage.getItem('preferred-currency') || 'usd';
         setLanguage(savedLang);
+        setCurrency(savedCurrency);
 
         langButtons.forEach(btn => {
             btn.addEventListener('click', () => {
                 const lang = btn.dataset.lang;
                 setLanguage(lang);
                 localStorage.setItem('preferred-language', lang);
+            });
+        });
+
+        currencyButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const currency = btn.dataset.currency;
+                setCurrency(currency);
+                localStorage.setItem('preferred-currency', currency);
             });
         });
 
@@ -584,19 +830,46 @@
             });
         }
 
+        function setCurrency(currency) {
+            // Update button states
+            currencyButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.currency === currency);
+            });
+
+            // Update prices
+            const prices = document.querySelectorAll('.creator-price');
+            prices.forEach(price => {
+                const usdAmount = parseFloat(price.dataset.usd);
+                if (usdAmount && currency === 'amd') {
+                    const amdAmount = Math.round(usdAmount * exchangeRates.amd);
+                    price.textContent = `֏${amdAmount.toLocaleString()}`;
+                } else if (usdAmount && currency === 'usd') {
+                    price.textContent = `$${usdAmount}`;
+                }
+            });
+        }
+
         // Render creators
         function renderCreators(creatorsToRender = creators) {
             const grid = document.getElementById('creatorsGrid');
-            grid.innerHTML = '';
+            
+            if (creatorsToRender.length === 0) {
+                grid.innerHTML = `
+                    <div class="no-results" style="grid-column: 1 / -1;">
+                        <i class="fas fa-search"></i>
+                        <h3 data-lang-en="No creators found" data-lang-ru="Создатели не найдены" data-lang-am="Ստեղծագործողներ չեն գտնվել">No creators found</h3>
+                        <p data-lang-en="Try adjusting your search criteria" data-lang-ru="Попробуйте изменить критерии поиска" data-lang-am="Փորձեք փոխել որոնման չափանիշները">Try adjusting your search criteria</p>
+                        <button class="btn btn-primary" onclick="clearFilters()" data-lang-en="Clear Filters" data-lang-ru="Очистить фильтры" data-lang-am="Մաքրել ֆիլտրերը">Clear Filters</button>
+                    </div>
+                `;
+                setLanguage(savedLang);
+                return;
+            }
 
-            creatorsToRender.forEach(creator => {
-                const card = document.createElement('div');
-                card.className = 'creator-card glass animate';
-                card.onclick = () => window.location.href = `creator.html?id=${creator.id}`;
-                
-                card.innerHTML = `
+            grid.innerHTML = creatorsToRender.map(creator => `
+                <div class="creator-card glass animate">
                     <div class="creator-avatar">
-                        <img src="${creator.image}" alt="${creator.name}">
+                        <img src="${creator.avatar}" alt="${creator.name}">
                         ${creator.verified ? '<div class="verification-badge"><i class="fas fa-check-circle"></i></div>' : ''}
                     </div>
                     <div class="creator-info">
@@ -612,43 +885,62 @@
                         <div class="creator-tags">
                             ${creator.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
                         </div>
-                        <div class="creator-price">${creator.price}</div>
-                        <div class="creator-actions">
-                            <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); window.location.href='creator.html?id=${creator.id}'">View Profile</button>
-                            <button class="btn btn-secondary btn-sm" onclick="event.stopPropagation(); window.location.href='index.html#contact'">Hire Now</button>
-                        </div>
+                        <div class="creator-price" data-usd="${creator.price}">$${creator.price}</div>
+                        <a href="creator.html?id=${creator.id}" class="btn btn-primary">
+                            <i class="fas fa-eye"></i>
+                            <span data-lang-en="View Profile" data-lang-ru="Посмотреть профиль" data-lang-am="Դիտել պրոֆիլը">View Profile</span>
+                        </a>
                     </div>
-                `;
-                
-                grid.appendChild(card);
-            });
+                </div>
+            `).join('');
+            
+            setLanguage(savedLang);
+            setCurrency(savedCurrency);
         }
 
         // Filter functionality
-        function applyFilters() {
-            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-            const category = document.getElementById('categoryFilter').value;
-            const rating = parseFloat(document.getElementById('ratingFilter').value) || 0;
+        function filterCreators() {
+            const searchTerm = document.getElementById('search').value.toLowerCase();
+            const categoryFilter = document.getElementById('category').value;
+            const ratingFilter = parseFloat(document.getElementById('rating').value) || 0;
 
-            const filteredCreators = creators.filter(creator => {
-                const matchesSearch = creator.name.toLowerCase().includes(searchTerm) || 
+            const filtered = creators.filter(creator => {
+                const matchesSearch = creator.name.toLowerCase().includes(searchTerm) ||
                                     creator.category.toLowerCase().includes(searchTerm) ||
                                     creator.tags.some(tag => tag.toLowerCase().includes(searchTerm));
-                const matchesCategory = !category || creator.category.toLowerCase().includes(category);
-                const matchesRating = creator.rating >= rating;
+                
+                const matchesCategory = !categoryFilter || creator.categoryValue === categoryFilter;
+                const matchesRating = creator.rating >= ratingFilter;
 
                 return matchesSearch && matchesCategory && matchesRating;
             });
 
-            renderCreators(filteredCreators);
+            renderCreators(filtered);
         }
 
-        // Search functionality
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-        document.getElementById('categoryFilter').addEventListener('change', applyFilters);
-        document.getElementById('ratingFilter').addEventListener('change', applyFilters);
+        function clearFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('category').value = '';
+            document.getElementById('rating').value = '';
+            renderCreators();
+        }
 
-        // Initialize page
+        // Event listeners
+        document.getElementById('search').addEventListener('input', filterCreators);
+        document.getElementById('category').addEventListener('change', filterCreators);
+        document.getElementById('rating').addEventListener('change', filterCreators);
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Initial render
         renderCreators();
 
         // Google Analytics
@@ -659,7 +951,7 @@
 
         // Track page view
         gtag('event', 'page_view', {
-            'page_title': 'Creators - ContentBridge Armenia',
+            'page_title': 'ContentBridge Creators Directory',
             'page_location': window.location.href
         });
     </script>
